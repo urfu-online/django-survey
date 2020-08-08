@@ -25,6 +25,7 @@ class Survey(models.Model):
     ]
 
     name = models.CharField(_("Name"), max_length=400)
+    slug = models.SlugField(_("Slug"), max_length=32)
     description = models.TextField(_("Description"))
     is_published = models.BooleanField(_("Users can see it and answer it"), default=True)
     need_logged_user = models.BooleanField(_("Only authenticated users can see it and answer it"))
@@ -58,7 +59,7 @@ class Survey(models.Model):
         return min_
 
     def get_absolute_url(self):
-        return reverse("survey-detail", kwargs={"id": self.pk})
+        return reverse("survey-detail-slug", kwargs={"slug": self.slug})
 
     def non_empty_categories(self):
         return [x for x in list(self.categories.order_by("order", "id")) if x.questions.count() > 0]

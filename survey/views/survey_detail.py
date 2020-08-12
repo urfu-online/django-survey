@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import logging
+import urllib
 
 from django.conf import settings
 from django.shortcuts import redirect, render, reverse
@@ -20,7 +21,15 @@ logger = logging.getLogger(__name__)
 class SurveyDetail(View):
     @survey_available
     def get(self, request, *args, **kwargs):
-        logger.debug("SurveyDetail")
+
+        query_params = urllib.parse.parse_qs(request.GET.urlencode())
+        logger.info(query_params)
+        if "custom_user" in query_params.keys():
+            custom_user = query_params["custom_user"][0]
+            query_params["custom_user"] = custom_user
+        else:
+            custom_user = ""
+
         survey = kwargs.get("survey")
         step = kwargs.get("step", 0)
         if survey.template is not None and len(survey.template) > 4:
@@ -33,7 +42,7 @@ class SurveyDetail(View):
         if survey.need_logged_user and not request.user.is_authenticated:
             return redirect("%s?next=%s" % (settings.LOGIN_URL, request.path))
 
-        form = ResponseForm(survey=survey, user=request.user, step=step)
+        form = ResponseForm(survey=survey, user=request.user, step=step, custom_user=custom_user)
         categories = form.current_categories()
 
         asset_context = {
@@ -46,6 +55,7 @@ class SurveyDetail(View):
             "categories": categories,
             "step": step,
             "asset_context": asset_context,
+            "query_params": urllib.parse.urlencode(query_params),
         }
 
         return render(request, template_name, context)
@@ -56,7 +66,17 @@ class SurveyDetail(View):
         if survey.need_logged_user and not request.user.is_authenticated:
             return redirect("%s?next=%s" % (settings.LOGIN_URL, request.path))
 
-        form = ResponseForm(request.POST, survey=survey, user=request.user, step=kwargs.get("step", 0))
+        query_params = urllib.parse.parse_qs(request.GET.urlencode())
+        # logger.info(query_params)
+        if "custom_user" in query_params.keys():
+            custom_user = query_params["custom_user"][0]
+            query_params["custom_user"] = custom_user
+        else:
+            custom_user = ""
+
+        form = ResponseForm(
+            request.POST, survey=survey, user=request.user, step=kwargs.get("step", 0), custom_user=custom_user
+        )
         categories = form.current_categories()
 
         if not survey.editable_answers and form.response is not None:
@@ -88,12 +108,22 @@ class SurveyDetail(View):
             request.session.modified = True
         next_url = form.next_step_url()
         response = None
+        query_params = urllib.parse.parse_qs(request.GET.urlencode())
+        # logger.info(query_params)
+        if "custom_user" in query_params.keys():
+            custom_user = query_params["custom_user"][0]
+            query_params["custom_user"] = custom_user
+        else:
+            custom_user = ""
+
         if survey.is_all_in_one_page():
             response = form.save()
         else:
             # when it's the last step
             if not form.has_next_step():
-                save_form = ResponseForm(request.session[session_key], survey=survey, user=request.user)
+                save_form = ResponseForm(
+                    request.session[session_key], survey=survey, user=request.user, custom_user=custom_user
+                )
                 if save_form.is_valid():
                     response = save_form.save()
                 else:

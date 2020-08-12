@@ -44,6 +44,10 @@ class ResponseForm(models.ModelForm):
         """ Expects a survey object to be passed in initially """
         self.survey = kwargs.pop("survey")
         self.user = kwargs.pop("user")
+
+        self.custom_user = kwargs.pop("custom_user")
+        LOGGER.info(self.custom_user)
+
         try:
             self.step = int(kwargs.pop("step"))
         except KeyError:
@@ -113,6 +117,11 @@ class ResponseForm(models.ModelForm):
 
         if not self.user.is_authenticated:
             self.response = None
+            try:
+                if self.custom_user:
+                    self.response = Response.objects.get(survey=self.survey, custom_user=self.custom_user)
+            except Response.DoesNotExist:
+                self.response = None
         else:
             try:
                 self.response = Response.objects.prefetch_related("user", "survey").get(
@@ -121,6 +130,7 @@ class ResponseForm(models.ModelForm):
             except Response.DoesNotExist:
                 LOGGER.debug("No saved response for '%s' for user %s", self.survey, self.user)
                 self.response = None
+
         return self.response
 
     def _get_preexisting_answers(self):
@@ -256,8 +266,10 @@ class ResponseForm(models.ModelForm):
 
     def next_step_url(self):
         if self.has_next_step():
+
             context = {"slug": self.survey.slug, "step": self.step + 1}
-            return reverse("survey-detail-step", kwargs=context)
+            qs = "" if len(self.custom_user) == 0 else "?custom_user=" + self.custom_user
+            return reverse("survey-detail-step", kwargs=context) + qs
 
     def current_step_url(self):
         return reverse("survey-detail-step", kwargs={"slug": self.survey.slug, "step": self.step})
@@ -273,6 +285,7 @@ class ResponseForm(models.ModelForm):
             response = super(ResponseForm, self).save(commit=False)
         response.survey = self.survey
         response.interview_uuid = self.uuid
+        response.custom_user = self.custom_user
         if self.user.is_authenticated:
             response.user = self.user
         response.save()

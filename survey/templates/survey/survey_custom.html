@@ -22,7 +22,6 @@
 
 
 {% block body %}
-    <h1>KEK custom</h1>
 	<h1> {{survey.name}} </h1>
     <p>step {{ step }}</p>
 	<div class="survey-description"> {{survey.description|safe}} </div>
@@ -48,7 +47,8 @@
 			            </a></h3>
 				    </div>
                     <div class="category-container">
-				        <div id="collapse{{category.slugify}}" class="panel-collapse collapse {% if not survey.editable_answers and response_form.response is not None %}in{% endif %}
+{#                    panel-collapse collapse #}
+				        <div id="collapse{{category.slugify}}" class="{% if not survey.editable_answers and response_form.response is not None %}in{% endif %}
 				        {{ response_form|collapse_form:category }}">
 				            <div class="panel-body">
 	                           {% include "survey/question.html" %}

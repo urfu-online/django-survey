@@ -256,11 +256,11 @@ class ResponseForm(models.ModelForm):
 
     def next_step_url(self):
         if self.has_next_step():
-            context = {"id": self.survey.id, "step": self.step + 1}
+            context = {"slug": self.survey.slug, "step": self.step + 1}
             return reverse("survey-detail-step", kwargs=context)
 
     def current_step_url(self):
-        return reverse("survey-detail-step", kwargs={"id": self.survey.id, "step": self.step})
+        return reverse("survey-detail-step", kwargs={"slug": self.survey.slug, "step": self.step})
 
     def save(self, commit=True):
         """ Save the response object """
@@ -277,7 +277,7 @@ class ResponseForm(models.ModelForm):
             response.user = self.user
         response.save()
         # response "raw" data as dict (for signal)
-        data = {"survey_id": response.survey.id, "interview_uuid": response.interview_uuid, "responses": []}
+        data = {"survey_slug": response.survey.slug, "interview_uuid": response.interview_uuid, "responses": []}
         # create an answer object for each question and associate it with this
         # response.
         for field_name, field_value in list(self.cleaned_data.items()):

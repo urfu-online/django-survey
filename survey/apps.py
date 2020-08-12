@@ -9,4 +9,4 @@ class DjangoSurveyAndReportConfig(AppConfig):
 
     name = "survey"
     label = "survey"
-    verbose_name = "Survey and report"
+    verbose_name = "Опросы"

@@ -12,6 +12,6 @@ class SurveyCompleted(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = {}
-        survey = get_object_or_404(Survey, is_published=True, id=kwargs["id"])
+        survey = get_object_or_404(Survey, is_published=True, slug=str(kwargs["slug"]))
         context["survey"] = survey
         return context

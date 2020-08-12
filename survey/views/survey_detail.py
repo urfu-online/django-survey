@@ -11,9 +11,13 @@ from survey.forms import ResponseForm
 LOGGER = logging.getLogger(__name__)
 
 
+logger = logging.getLogger(__name__)
+
+
 class SurveyDetail(View):
     @survey_available
     def get(self, request, *args, **kwargs):
+        logger.debug("SurveyDetail")
         survey = kwargs.get("survey")
         step = kwargs.get("step", 0)
         if survey.template is not None and len(survey.template) > 4:

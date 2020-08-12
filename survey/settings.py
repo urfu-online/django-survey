@@ -62,3 +62,5 @@ LANGUAGES = (
     ("zh", "Chinese"),
     ("de", "German"),
 )
+
+X_FRAME_OPTIONS = "SAMEORIGIN"

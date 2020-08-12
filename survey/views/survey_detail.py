@@ -3,6 +3,8 @@ import logging
 
 from django.conf import settings
 from django.shortcuts import redirect, render, reverse
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import View
 
 from survey.decorators import survey_available
@@ -14,6 +16,7 @@ LOGGER = logging.getLogger(__name__)
 logger = logging.getLogger(__name__)
 
 
+@method_decorator(csrf_exempt, name="dispatch")
 class SurveyDetail(View):
     @survey_available
     def get(self, request, *args, **kwargs):

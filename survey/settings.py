@@ -8,7 +8,6 @@ from django.conf import settings
 # Number of messages to display per page.
 MESSAGES_PER_PAGE = getattr(settings, "ROSETTA_MESSAGES_PER_PAGE", 10)
 
-
 ROOT = os.path.dirname(os.path.abspath(__file__))
 USER_DID_NOT_ANSWER = getattr(settings, "USER_DID_NOT_ANSWER", "Left blank")
 TEX_CONFIGURATION_FILE = getattr(settings, "TEX_CONFIGURATION_FILE", Path(ROOT, "doc", "example_conf.yaml"))
@@ -36,8 +35,9 @@ TEMPLATES = [
         "OPTIONS": {
             "context_processors": [
                 # Default
-                "django.contrib.auth.context_processors.auth",
                 "django.template.context_processors.debug",
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
                 "django.template.context_processors.i18n",
                 "django.template.context_processors.media",
                 "django.template.context_processors.static",

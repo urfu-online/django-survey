@@ -48,7 +48,6 @@ TEMPLATES = [
     }
 ]
 
-
 INSTALLED_APPS = ("survey", "bootstrapform")
 
 LOCALE_PATHS = (Path(ROOT, "survey", "locale"),)

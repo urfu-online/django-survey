@@ -23,12 +23,14 @@
 
 {% block body %}
 	<h1> {{survey.name}} </h1>
+    <p>step {{ step }}</p>
 	<div class="survey-description"> {{survey.description|safe}} </div>
 	<div>
       {% if step and step != 0 %}
-		<form action="{% url 'survey-detail-step' id=survey.id step=step %}" method="post">
+
+		<form action="{% url 'survey-detail-step' slug=survey.slug step=step %}{% if query_params|length > 0 %}?{{query_params}}{% endif %}" method="post">
 	{% else %}
-		<form action="{% url 'survey-detail-slug' slug=survey.slug %}" method="post">
+		<form action="{% url 'survey-detail-slug' slug=survey.slug %}{% if query_params|length > 0 %}?{{query_params}}{% endif %}" method="post">
 	{% endif %}
 	    {% csrf_token %}
         {% for category in categories %}

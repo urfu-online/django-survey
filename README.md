@@ -56,7 +56,7 @@ echo 'django-survey-and-report' > requirements.txt
 pip install -r requirements.txt
 ~~~~
 
-Add `bootstrapform` and `survey` in the `INSTALLED_APPS` in your settings :
+Add `survey` in the `INSTALLED_APPS` in your settings :
 
 ~~~~python
 INSTALLED_APPS = [
@@ -69,7 +69,6 @@ CSV_DIRECTORY = Path("csv") # Define the directory where csv are exported
 TEX_DIRECTORY = Path("tex") # Define the directory where tex files and pdf are exported
 
 INSTALLED_APPS += [
-	'bootstrapform',
 	'survey'
 ]
 ~~~~

@@ -8,24 +8,24 @@
       </tr>
     </thead> -->
     <tbody>
-    {% for form in response_form %}
-        {% if form.field.widget.attrs.category == category.name or not form.field.widget.attrs.category %}
-            <tr class="{% if form.errors %} danger {% endif %}">
+{#    {% for form in response_form %}#}
+        {% if response_form.field.widget.attrs.category == category.name or not response_form.field.widget.attrs.category %}
+            <tr class="{% if response_form.errors %} danger {% endif %}">
                 <td>
                     {% render_field  form.label %}
-                    {% if form.field.required %}
+                    {% if response_form.field.required %}
                         <span class="glyphicon glyphicon-asterisk" style="color:red"> </span>
                     {% endif %}
                     <span class="help-inline" style="color:red">
-	                <strong> {% for error in  form.errors %}{{ error }}{% endfor %} </strong>
+	                <strong> {% for error in  response_form.errors %}{{ error }}{% endfor %} </strong>
 	            </span> <br>
-                    {% if form.field.widget.input_type == 'select' %}
-                        <select name="{{ form.name }}"{% if form.field.widget.attrs.disabled %} disabled{% endif %}>
+                    {% if response_form.field.widget.input_type == 'select' %}
+                        <select name="{{ response_form.name }}"{% if response_form.field.widget.attrs.disabled %} disabled{% endif %}>
                     {% endif %}
-                    {% for field in form %}
+                    {% for field in response_form %}
                         {{ field }} <br/>
                     {% endfor %}
-                    {% if form.field.widget.input_type == 'select' %}
+                    {% if response_form.field.widget.input_type == 'select' %}
                         </select>
                     {% endif %}
 
@@ -37,6 +37,6 @@
                 </td>
             </tr>
         {% endif %}
-    {% endfor %}
+{#    {% endfor %}#}
     </tbody>
 </table>

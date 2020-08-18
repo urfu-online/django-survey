@@ -2,8 +2,18 @@
 {% load i18n %}
 
 {% block body %}
+
+    <h2 class="ui header">
+  <i class="settings icon"></i>
+  <div class="content">
+    {% trans "Welcome to the Django Survey app"%}
+    <div class="sub header">Manage your preferences</div>
+  </div>
+</h2>
+
+
 <div id="intro">
-	<h1>{% trans "Welcome to the Django Survey app"%}</h1>
+	<h1></h1>
 
 	<ul>
 		{% for survey in surveys %}

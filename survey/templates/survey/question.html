@@ -1,4 +1,5 @@
 {% load bootstrap %}
+{% render_form my_form %}
 
 <table class="table table-hover">
     <!--<thead>
@@ -8,35 +9,35 @@
       </tr>
     </thead> -->
     <tbody>
-{% for form in response_form %}
-	{% if form.field.widget.attrs.category == category.name or not form.field.widget.attrs.category %}
-        <tr class="{% if form.errors%} danger {% endif %}">
-            <td>
-	            {{ form.label|safe }}
-	            {% if form.field.required %}
-	                <span class="glyphicon glyphicon-asterisk" style="color:red"> </span>
-	            {% endif %}
-	            <span class="help-inline" style="color:red">
+    {% for form in response_form %}
+        {% if form.field.widget.attrs.category == category.name or not form.field.widget.attrs.category %}
+            <tr class="{% if form.errors %} danger {% endif %}">
+                <td>
+                    {% render_field  form.label|safe %}
+                    {% if form.field.required %}
+                        <span class="glyphicon glyphicon-asterisk" style="color:red"> </span>
+                    {% endif %}
+                    <span class="help-inline" style="color:red">
 	                <strong> {% for error in  form.errors %}{{ error }}{% endfor %} </strong>
 	            </span> <br>
-                {% if form.field.widget.input_type == 'select' %}
-                <select name="{{form.name}}"{% if form.field.widget.attrs.disabled %} disabled{% endif %}>
-                {% endif %}
-	            {% for field in form %}
-                    {{ field }} <br/>
-                {% endfor%}
-                {% if form.field.widget.input_type == 'select' %}
-                </select>
-                {% endif %}
+                    {% if form.field.widget.input_type == 'select' %}
+                        <select name="{{ form.name }}"{% if form.field.widget.attrs.disabled %} disabled{% endif %}>
+                    {% endif %}
+                    {% for field in form %}
+                        {{ field }} <br/>
+                    {% endfor %}
+                    {% if form.field.widget.input_type == 'select' %}
+                        </select>
+                    {% endif %}
 
-{#            <div class="form-check form-check-inline">#}
-{#              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">#}
-{#              <label class="form-check-label" for="inlineRadio1">1</label>#}
-{#            </div>#}
+                    {#            <div class="form-check form-check-inline">#}
+                    {#              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">#}
+                    {#              <label class="form-check-label" for="inlineRadio1">1</label>#}
+                    {#            </div>#}
 
-            </td>
-        </tr>
-	{% endif %}
-{% endfor %}
+                </td>
+            </tr>
+        {% endif %}
+    {% endfor %}
     </tbody>
 </table>

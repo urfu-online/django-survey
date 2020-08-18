@@ -118,9 +118,9 @@ INSTALLED_APPS = (
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django.contrib.sites",
-    "survey",
-    "bootstrapform",
+    "semanticuiforms",
     "rosetta",
+    "survey",
 )
 
 LOCALE_PATHS = (os.path.join(ROOT, "survey", "locale"),)

@@ -51,7 +51,6 @@ setuptools.setup(
     ],
     install_requires=[
         "django>=2.2",
-        "django-bootstrap-form>=3.4",
         "django-tastypie>=0.14.2",  # API
         "django-registration>=3.0",  # account logic, views and workflows
         "pytz>=2018.9",
@@ -59,6 +58,7 @@ setuptools.setup(
         "pyyaml>=4.2b1",
         "pySankeyBeta~=1.2.2",
         "django-rosetta",
+        "django-semanticui-forms @ git+https://github.com/urfu-online/django-semanticui-forms@master#egg=django-semanticui-forms",
     ],
     extras_require={
         "dev": [

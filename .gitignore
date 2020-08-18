@@ -7,6 +7,7 @@ __pycache__
 survey.db
 django_survey_and_report.egg-info/
 survey_test/static/
+staticfiles
 venv/
 .idea/
 .project

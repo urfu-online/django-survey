@@ -2,6 +2,7 @@
 
 import logging
 import uuid
+from icecream import ic
 
 from django import forms
 from django.conf import settings
@@ -17,7 +18,6 @@ LOGGER = logging.getLogger(__name__)
 
 
 class ResponseForm(models.ModelForm):
-
     FIELDS = {
         Question.TEXT: forms.CharField,
         Question.SHORT_TEXT: forms.CharField,
@@ -44,6 +44,8 @@ class ResponseForm(models.ModelForm):
         """ Expects a survey object to be passed in initially """
         self.survey = kwargs.pop("survey")
         self.user = kwargs.pop("user")
+
+        self.location = kwargs.get("location", "")
 
         self.custom_user = kwargs.pop("custom_user")
         LOGGER.info(self.custom_user)
@@ -119,7 +121,8 @@ class ResponseForm(models.ModelForm):
             self.response = None
             try:
                 if self.custom_user:
-                    self.response = Response.objects.get(survey=self.survey, custom_user=self.custom_user)
+                    self.response = Response.objects.get(survey=self.survey, custom_user=self.custom_user,
+                                                         location=self.location)
             except Response.DoesNotExist:
                 self.response = None
         else:
@@ -266,7 +269,6 @@ class ResponseForm(models.ModelForm):
 
     def next_step_url(self):
         if self.has_next_step():
-
             context = {"slug": self.survey.slug, "step": self.step + 1}
             qs = "" if len(self.custom_user) == 0 else "?custom_user=" + self.custom_user
             return reverse("survey-detail-step", kwargs=context) + qs
@@ -281,16 +283,21 @@ class ResponseForm(models.ModelForm):
         response = self._get_preexisting_response()
         if not self.survey.editable_answers and response is not None:
             return None
+
         if response is None:
             response = super(ResponseForm, self).save(commit=False)
+            ic()
         response.survey = self.survey
         response.interview_uuid = self.uuid
         response.custom_user = self.custom_user
+        response.location = self.location
+
         if self.user.is_authenticated:
             response.user = self.user
         response.save()
         # response "raw" data as dict (for signal)
-        data = {"survey_slug": response.survey.slug, "interview_uuid": response.interview_uuid, "responses": []}
+        data = {"survey_slug": response.survey.slug, "location": response.location,
+                "interview_uuid": response.interview_uuid, "responses": []}
         # create an answer object for each question and associate it with this
         # response.
         for field_name, field_value in list(self.cleaned_data.items()):

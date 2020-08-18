@@ -4,21 +4,21 @@
 {% block body %}
 
     <h2 class="ui header">
-  <i class="settings icon"></i>
-  <div class="content">
-    {% trans "Welcome to the Django Survey app"%}
-    <div class="sub header">Manage your preferences</div>
-  </div>
-</h2>
+        <div class="content">
+            <i class="university icon"></i> Сервис анкетирования преподавателей
+            <div class="sub header">Список анкет</div>
+        </div>
+
+    </h2>
 
 
-<div id="intro">
-	<h1></h1>
+    <div id="intro">
+        <h1></h1>
 
-	<ul>
-		{% for survey in surveys %}
-		<li><a href="{{ survey.get_absolute_url }}">{% trans "Take the Survey"%} {{survey.name}}</a></li>
-		{% endfor %}
-	</div>
-</div>
+        <ul>
+            {% for survey in surveys %}
+                <li><a href="{{ survey.get_absolute_url }}">{% trans "Take the Survey" %} {{ survey.name }}</a></li>
+            {% endfor %}
+    </div>
+    </div>
 {% endblock %}

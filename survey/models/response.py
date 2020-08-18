@@ -29,7 +29,8 @@ class Response(models.Model):
     survey = models.ForeignKey(Survey, on_delete=models.CASCADE, verbose_name=_("Survey"), related_name="responses")
     user = models.ForeignKey(user_model, on_delete=models.SET_NULL, verbose_name=_("User"), null=True, blank=True)
     interview_uuid = models.CharField(_("Interview unique identifier"), max_length=36)
-    custom_user = models.CharField(("Custom user"), max_length=400, null=True, blank=True)
+    custom_user = models.CharField("Custom user", max_length=400, null=True, blank=True)
+    location = models.CharField("Location", max_length=1024, null=True, blank=True)
 
     class Meta:
         verbose_name = _("Set of answers to surveys")

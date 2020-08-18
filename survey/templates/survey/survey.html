@@ -31,14 +31,21 @@
         {% if step and step != 0 %}
 
             <form class="ui form" action="
+
+
+
                     {% url 'survey-detail-step' slug=survey.slug step=step %}{% if query_params|length > 0 %}?{{ query_params }}{% endif %}"
                   method="post">
         {% else %}
             <form class="ui form" action="
+
+
+
                     {% url 'survey-detail-slug' slug=survey.slug %}{% if query_params|length > 0 %}?{{ query_params }}{% endif %}"
                   method="post">
         {% endif %}
         {% csrf_token %}
+        <input type="" name="location" value="">
         {% for category in categories %}
             <h3> {{ category }} </h3>
             <p> {{ category.description }} </p>
@@ -77,5 +84,18 @@
             >
         {% endif %}
         </form>
+        <script type="text/javascript">
+
+                function listener(event) {
+                    document.getElementsByName("location")[0].value = event.data;
+                }
+
+                if (window.addEventListener) {
+                    window.addEventListener("message", listener);
+                } else {
+                    window.attachEvent("onmessage", listener);
+                }
+        </script>
+
     </div>
 {% endblock %}

@@ -13,7 +13,6 @@ from survey.forms import ResponseForm
 
 LOGGER = logging.getLogger(__name__)
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -43,6 +42,7 @@ class SurveyDetail(View):
             return redirect("%s?next=%s" % (settings.LOGIN_URL, request.path))
 
         form = ResponseForm(survey=survey, user=request.user, step=step, custom_user=custom_user)
+        print(dir(form))
         categories = form.current_categories()
 
         asset_context = {
@@ -75,7 +75,8 @@ class SurveyDetail(View):
             custom_user = ""
 
         form = ResponseForm(
-            request.POST, survey=survey, user=request.user, step=kwargs.get("step", 0), custom_user=custom_user
+            request.POST, survey=survey, user=request.user, step=kwargs.get("step", 0), custom_user=custom_user,
+            location=kwargs.get("location", "lol")
         )
         categories = form.current_categories()
 

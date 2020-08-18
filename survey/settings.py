@@ -48,7 +48,7 @@ TEMPLATES = [
     }
 ]
 
-INSTALLED_APPS = ("survey", "bootstrapform")
+INSTALLED_APPS = ("survey",)
 
 LOCALE_PATHS = (Path(ROOT, "survey", "locale"),)
 LANGUAGE_CODE = "en"

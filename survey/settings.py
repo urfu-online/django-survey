@@ -25,7 +25,7 @@ STATIC_ROOT = Path(ROOT, "static")
 DEBUG_ADMIN_NAME = "test_admin"
 DEBUG_ADMIN_PASSWORD = "test_password"
 
-STATICFILES_DIRS = [os.path.normpath(Path(ROOT, "..", "survey", "static"))]
+STATICFILES_DIRS = [os.path.normpath(Path(ROOT, "staticfiles"))]
 
 TEMPLATES = [
     {

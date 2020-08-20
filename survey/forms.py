@@ -2,7 +2,6 @@
 
 import logging
 import uuid
-from icecream import ic
 
 from django import forms
 from django.conf import settings
@@ -44,8 +43,6 @@ class ResponseForm(models.ModelForm):
         """ Expects a survey object to be passed in initially """
         self.survey = kwargs.pop("survey")
         self.user = kwargs.pop("user")
-
-        self.location = kwargs.get("location", "")
 
         self.custom_user = kwargs.pop("custom_user")
         LOGGER.info(self.custom_user)
@@ -121,8 +118,7 @@ class ResponseForm(models.ModelForm):
             self.response = None
             try:
                 if self.custom_user:
-                    self.response = Response.objects.get(survey=self.survey, custom_user=self.custom_user,
-                                                         location=self.location)
+                    self.response = Response.objects.get(survey=self.survey, custom_user=self.custom_user)
             except Response.DoesNotExist:
                 self.response = None
         else:
@@ -286,17 +282,15 @@ class ResponseForm(models.ModelForm):
 
         if response is None:
             response = super(ResponseForm, self).save(commit=False)
-            ic()
         response.survey = self.survey
         response.interview_uuid = self.uuid
         response.custom_user = self.custom_user
-        response.location = self.location
 
         if self.user.is_authenticated:
             response.user = self.user
         response.save()
         # response "raw" data as dict (for signal)
-        data = {"survey_slug": response.survey.slug, "location": response.location,
+        data = {"survey_slug": response.survey.slug,
                 "interview_uuid": response.interview_uuid, "responses": []}
         # create an answer object for each question and associate it with this
         # response.

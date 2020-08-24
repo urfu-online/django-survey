@@ -56,6 +56,7 @@ class SurveyDetail(View):
             "step": step,
             "asset_context": asset_context,
             "query_params": urllib.parse.urlencode(query_params),
+            "embed": kwargs.get("embed", False)
         }
 
         return render(request, template_name, context)
@@ -67,7 +68,6 @@ class SurveyDetail(View):
             return redirect("%s?next=%s" % (settings.LOGIN_URL, request.path))
 
         query_params = urllib.parse.parse_qs(request.GET.urlencode())
-        # logger.info(query_params)
         if "custom_user" in query_params.keys():
             custom_user = query_params["custom_user"][0]
             query_params["custom_user"] = custom_user

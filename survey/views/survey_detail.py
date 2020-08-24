@@ -56,7 +56,7 @@ class SurveyDetail(View):
             "step": step,
             "asset_context": asset_context,
             "query_params": urllib.parse.urlencode(query_params),
-            "embed": kwargs.get("embed", False)
+            "embed": kwargs.get("embed", False),
         }
 
         return render(request, template_name, context)
@@ -75,8 +75,7 @@ class SurveyDetail(View):
             custom_user = ""
 
         form = ResponseForm(
-            request.POST, survey=survey, user=request.user, step=kwargs.get("step", 0), custom_user=custom_user,
-            location=kwargs.get("location", "lol")
+            request.POST, survey=survey, user=request.user, step=kwargs.get("step", 0), custom_user=custom_user
         )
         categories = form.current_categories()
 
@@ -140,4 +139,4 @@ class SurveyDetail(View):
             if "next" in request.session:
                 del request.session["next"]
             return redirect(next_)
-        return redirect("survey-confirmation", uuid=response.interview_uuid)
+        return redirect("survey:survey-confirmation", uuid=response.interview_uuid)

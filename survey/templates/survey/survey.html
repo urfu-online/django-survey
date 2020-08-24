@@ -35,7 +35,7 @@
 
 
 
-                    {% url 'survey-detail-step' slug=survey.slug step=step %}{% if query_params|length > 0 %}?{{ query_params }}{% endif %}"
+                    {% url 'survey:survey-detail-step' slug=survey.slug step=step %}{% if query_params|length > 0 %}?{{ query_params }}{% endif %}"
                   method="post">
         {% else %}
             <form class="ui form" action="

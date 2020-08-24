@@ -14,7 +14,9 @@
 <div class="ui container" id="wrap">
     {% block wrapper %}{% endblock %}
     <div class="well" id="container-main">
+    {% if not embed %}
         <p><a href="/"><i class="question circle outline icon"></i>Список опросов</a></p>
+    {% endif %}
         {% block body %}{% endblock %}
     </div>
 </div>

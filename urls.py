@@ -10,14 +10,14 @@ from django.urls.base import reverse
 
 def home(request):
     """ Permit to not get 404 while testing. """
-    return redirect(reverse("survey-list"))
+    return redirect(reverse("surveys:survey-list"))
 
 
 urlpatterns = [
     path("", home, name="home"),
     path("accounts/", include("django.contrib.auth.urls")),
     path("rosetta/", include("rosetta.urls")),
-    path("survey/", include("survey.urls")),
-    path("embed/", include("survey.urls"), {"emded": True}),
+    path("survey/", include("survey.urls", namespace="surveys")),
+    path("embed/", include("survey.urls", namespace="embed-surveys"), {"embed": True}),
     path("admin/", admin.site.urls),
 ]

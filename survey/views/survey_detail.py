@@ -42,7 +42,7 @@ class SurveyDetail(View):
             return redirect("%s?next=%s" % (settings.LOGIN_URL, request.path))
 
         form = ResponseForm(survey=survey, user=request.user, step=step, custom_user=custom_user)
-        print(dir(form))
+        logger.warning(kwargs)
         categories = form.current_categories()
 
         asset_context = {

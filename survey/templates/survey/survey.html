@@ -6,7 +6,6 @@
 
 
 {% block title %} {{ survey.name }} {% endblock title %}
-<p>Embed: {{ embed }}</p>
 
 {% block extrajs %}
     {{ response_form.media }}
@@ -26,6 +25,7 @@
 
 {% block body %}
     <h1> {{ survey.name }} </h1>
+    <p>Embed: {{ embed }}</p>
     <p>step {{ step }}</p>
     <div class="survey-description"> {{ survey.description|safe }} </div>
     <div>
@@ -42,7 +42,7 @@
 
 
 
-                    {% url 'survey-detail-slug' slug=survey.slug %}{% if query_params|length > 0 %}?{{ query_params }}{% endif %}"
+                    {% url 'surveys:survey-detail-slug' slug=survey.slug %}{% if query_params|length > 0 %}?{{ query_params }}{% endif %}"
                   method="post">
         {% endif %}
         {% csrf_token %}

@@ -42,7 +42,7 @@
 
 
 
-                    {% url 'surveys:survey-detail-slug' slug=survey.slug %}{% if query_params|length > 0 %}?{{ query_params }}{% endif %}"
+                    {% url 'survey:survey-detail-slug' slug=survey.slug %}{% if query_params|length > 0 %}?{{ query_params }}{% endif %}"
                   method="post">
         {% endif %}
         {% csrf_token %}

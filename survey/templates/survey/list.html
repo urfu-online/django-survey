@@ -2,23 +2,13 @@
 {% load i18n %}
 
 {% block body %}
-
-    <h2 class="ui header">
-        <div class="content">
-            <i class="university icon"></i> Сервис анкетирования преподавателей
-            <div class="sub header">Список анкет</div>
-        </div>
-
-    </h2>
-
-
     <div id="intro">
         <h1></h1>
-
         <ul>
             {% for survey in surveys %}
                 <li><a href="{{ survey.get_absolute_url }}">{% trans "Take the Survey" %} {{ survey.name }}</a></li>
             {% endfor %}
+        </ul>
     </div>
-    </div>
+
 {% endblock %}

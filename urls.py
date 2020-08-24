@@ -17,7 +17,7 @@ urlpatterns = [
     path("", home, name="home"),
     path("accounts/", include("django.contrib.auth.urls")),
     path("rosetta/", include("rosetta.urls")),
-    path("survey/", include("survey.urls", namespace="surveys")),
-    path("embed/", include("survey.urls", namespace="embed-surveys"), {"embed": True}),
+    path("survey/", include("survey.urls", namespace="survey")),
+    path("embed/", include("survey.urls", namespace="embed-survey"), {"embed": True}),
     path("admin/", admin.site.urls),
 ]

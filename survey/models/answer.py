@@ -40,17 +40,17 @@ class Answer(models.Model):
     def values(self):
         if self.body is None:
             return [None]
-        if len(self.body) < 3 or self.body[0:3] != "[u'":
+        if len(self.body) < 3 or self.body[0:2] != "['":
             return [self.body]
         #  We do not use eval for security reason but it could work with :
         #  eval(self.body)
         #  It would permit to inject code into answer though.
         values = []
-        raw_values = self.body.split("', u'")
+        raw_values = self.body.split("', '")
         nb_values = len(raw_values)
         for i, value in enumerate(raw_values):
             if i == 0:
-                value = value[3:]
+                value = value[2:]
             if i + 1 == nb_values:
                 value = value[:-2]
             values.append(value)

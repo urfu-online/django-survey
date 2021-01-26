@@ -8,6 +8,11 @@ from survey.exporter.tex import Survey2Tex
 from survey.models import Answer, Category, Question, Response, Survey
 
 
+@admin.register(Question)
+class QuestionAdmin(admin.ModelAdmin):
+    search_fields = ['text', 'order']
+
+
 class QuestionInline(admin.TabularInline):
     model = Question
     ordering = ("order", "category")

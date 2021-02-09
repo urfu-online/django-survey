@@ -52,5 +52,5 @@ generic:
         before_number:
         scale_font:
         text: pin
-        style: drop shadow
+        style:
         type: pie

@@ -171,7 +171,7 @@ class Survey2Tex(Survey2X):
             dependencies_to_delete.append(Path(self.filename.parent, sty_dependency.name))
             LOGGER.debug("Copying <%s> temporarily to <%s>", sty_dependency, self.filename.parent)
             copy(sty_dependency, self.filename.parent)
-        xelatex_command = [xelatex, "-interaction=batchmode", "-no-shell-escape", "-halt-on-error", self.filename.name]
+        xelatex_command = [xelatex, "-interaction=batchmode", "-halt-on-error", self.filename.name]
         LOGGER.debug("Launching first compilation with <%s>.", xelatex_command)
         result = subprocess.check_output(xelatex_command)
         LOGGER.debug("First compilation had the following output: %s", result)

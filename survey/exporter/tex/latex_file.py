@@ -60,6 +60,7 @@ class LatexFile:
 
     def save(self, path):
         """ Save the document on disk. """
+        LOGGER.warning(f"Save .tex file {path}")
         with open(path, "wb") as tex_file:
             tex_file.write(self.document.encode("UTF-8"))
 

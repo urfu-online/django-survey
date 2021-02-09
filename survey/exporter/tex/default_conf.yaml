@@ -17,8 +17,8 @@ generic:
         \setotherlanguage{english}
         \setmainfont[Ligatures={TeX,Historic}]{Open Sans}
         \setsansfont{Open Sans}
-        \setmonofont{Ubuntu Mono}
-        \date{February 09, 2021}
+        \setmonofont{Liberation Mono}
+        \date
         \usepackage{pgf-pie}
         \usepackage{pgfplots}
         \usepackage{pgfplotstable}

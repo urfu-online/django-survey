@@ -16,15 +16,14 @@ generic:
         \setdefaultlanguage{russian}
         \setotherlanguage{english}
         \setmainfont[Ligatures={TeX,Historic}]{Open Sans}
-        \setsansfont{Open Sans}
-        \setmonofont{Liberation Mono}
-        \date
         \usepackage{pgf-pie}
         \usepackage{pgfplots}
         \usepackage{pgfplotstable}
         \usetikzlibrary{patterns}
         \usepackage[section]{placeins}
         \usepackage[utf8]{inputenc}
+        \setsansfont{Open Sans}
+        \setmonofont{Liberation Mono}
     intro:
     footer:
     categories_type: section

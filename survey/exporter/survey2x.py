@@ -46,7 +46,7 @@ class Survey2X:
 
     @property
     def filename(self):
-        return Path(self.directory, "{}.{}".format(slugify(self.survey.name), self.mime_type))
+        return Path(self.directory, "{}.{}".format(slugify(self.survey.slug), self.mime_type))
 
     @property
     def file_modification_time(self):

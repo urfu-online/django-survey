@@ -24,6 +24,9 @@ generic:
         \usepackage[utf8]{inputenc}
         \setsansfont{Open Sans}
         \setmonofont{Liberation Mono}
+        \newfontfamily{\cyrillicfont}{Open Sans}
+        \newfontfamily{\cyrillicfontsf}{Open Sans}
+        \newfontfamily{\cyrillicfontttt}{Open Sans}
     intro:
     footer:
     categories_type: section

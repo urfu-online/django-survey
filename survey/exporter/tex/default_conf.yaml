@@ -2,9 +2,23 @@
 
 generic:
     document_class: article
-    document_option: 12pt
+    document_option: 10pt
     date:
     header: |
+        \usepackage{geometry}
+         \geometry{
+         a4paper,
+         total={170mm,257mm},
+         left=20mm,
+         top=20mm,
+         }
+        \usepackage{polyglossia}
+        \setdefaultlanguage{russian}
+        \setotherlanguage{english}
+        \setmainfont[Ligatures={TeX,Historic}]{Open Sans}
+        \setsansfont{Open Sans}
+        \setmonofont{Ubuntu Mono}
+        \date{February 09, 2021}
         \usepackage{pgf-pie}
         \usepackage{pgfplots}
         \usepackage{pgfplotstable}
@@ -26,15 +40,15 @@ generic:
         group_by_slugify:
         group_by_letter_case:
         sort_answer:
-        pos:
+        pos: 0,0
         rotate:
-        radius: 4
+        radius: 3
         color:
-        explode:
+        explode: 0.1
         sum: auto
         after_number:
         before_number:
         scale_font:
-        text: legend
-        style:
+        text: pin
+        style: drop shadow
         type: pie
